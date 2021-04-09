@@ -7,6 +7,8 @@ const WEEKINSECONDS = 1000 * 60 * 60 * 24 * 7;
 
 router.post('/mount', async (req, res, next) => {
   try {
+      console.log('yalllllll')
+    //   console.log(req.session)
     if (req.session) {
       const refreshedSession = await Session.findByPk(req.session.id);
       res
@@ -15,6 +17,7 @@ router.post('/mount', async (req, res, next) => {
           path: '/',
         })
         .send(refreshedSession);
+        console.log(refreshedSession)
     } else {
       const guestSession = await Session.create();
       res
@@ -93,7 +96,7 @@ router.post('/login', async (req, res, next) => {
   }
 });
 
-router.post('/createUser', async (req, res, next) => {
+router.post('/createuser', async (req, res, next) => {
   try {
     const { username, password, firstName, lastName, userEmail } = req.body;
     const hashedPassword = await hash(password);
@@ -109,7 +112,9 @@ router.post('/createUser', async (req, res, next) => {
         where: {
           uuid: req.session.uuid,
         },
+        
       });
+      console.log(session, user)
       await session.setUser(user);
       res.cookie('sid', session.uuid, {
         maxAge: WEEKINSECONDS,
@@ -139,7 +144,7 @@ router.post('/logout', async (req, res, next) => {
 router.get('/thisUser', async (req, res, next) => {
   try {
     const { uuid } = req.session;
-    const userSession = await Session.findOne({
+    const userSession = await Session.findOrCreate({
       where: { uuid },
     });
     const user = await User.findByPk(userSession.userId);

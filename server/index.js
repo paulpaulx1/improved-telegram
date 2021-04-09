@@ -17,6 +17,7 @@ app.use(authMiddleware);
 app.use((req, res, next) => {
   console.log('cookies', req.cookies);
   if (req.cookies.sid) {
+      console.log('yayys')
   }
   next();
 });

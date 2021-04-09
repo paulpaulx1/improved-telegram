@@ -2,8 +2,9 @@ const chalk = require('chalk');
 const { Session, User } = require('../db');
 
 const authMiddleware = async (req, res, next) => {
-  const { sid } = req.cookies;
 
+  const { sid } = req.cookies;
+console.log('reqqqq',req.cookies)
   if (!sid) {
     console.log('No session associated with this user.');
     req.session = null;

@@ -4,6 +4,10 @@ const db = require('../db');
 const { STRING, ENUM } = Sequelize;
 
 const User = db.define('user', {
+  username: {
+    type: STRING,
+    unique: true,
+  },
   userType: {
     type: ENUM('admin', 'shopper'),
     defaultValue: 'shopper',

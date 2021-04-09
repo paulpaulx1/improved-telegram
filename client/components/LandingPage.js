@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import { Link } from 'react-router-dom'
-import { nanoid } from 'nanoid'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { nanoid } from 'nanoid';
+import { connect } from 'react-redux'
 
 export const LandingPage = () => {
   const [data, setData] = useState('');
@@ -14,5 +15,16 @@ export const LandingPage = () => {
   }, []);
 
   console.log(data);
-  return data && <>hi<div key={nanoid()}>{data.map((plant)=><img key={nanoid()} src={plant.imageUrl} style={{height:200}}/>)}</div></>;
+  return (
+    data && (
+      <>
+        hi
+        <div key={nanoid()}>
+          {data.map((plant) => (
+            <div key={nanoid()}>{plant.plantName}</div>
+          ))}
+        </div>
+      </>
+    )
+  );
 };

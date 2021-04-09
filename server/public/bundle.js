@@ -102,6 +102,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var nanoid__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! nanoid */ "./node_modules/nanoid/index.browser.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
 
 
 
@@ -119,13 +121,9 @@ const LandingPage = () => {
   console.log(data);
   return data && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, "hi", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     key: Object(nanoid__WEBPACK_IMPORTED_MODULE_3__["nanoid"])()
-  }, data.map(plant => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-    key: Object(nanoid__WEBPACK_IMPORTED_MODULE_3__["nanoid"])(),
-    src: plant.imageUrl,
-    style: {
-      height: 200
-    }
-  }))));
+  }, data.map(plant => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    key: Object(nanoid__WEBPACK_IMPORTED_MODULE_3__["nanoid"])()
+  }, plant.plantName))));
 };
 
 /***/ }),
@@ -134,18 +132,238 @@ const LandingPage = () => {
 /*!*************************************!*\
   !*** ./client/components/Navbar.js ***!
   \*************************************/
-/*! exports provided: Navbar */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Navbar", function() { return Navbar; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _redux_categories_allCategories__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../redux/categories/allCategories */ "./client/redux/categories/allCategories.js");
+/* harmony import */ var _redux_authentication_user__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../redux/authentication/user */ "./client/redux/authentication/user.js");
+/* harmony import */ var _redux_authentication_session__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../redux/authentication/session */ "./client/redux/authentication/session.js");
+/* harmony import */ var _redux_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../redux/index */ "./client/redux/index.js");
 
-const Navbar = () => {
+
+
+
+
+
+
+
+
+const Navbar = props => {
+  const [stuff, setStuff] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({});
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    const {
+      fetchCategories,
+      ifCookieSession,
+      getUser
+    } = props;
+    console.log(ifCookieSession);
+
+    const getStuff = async () => {
+      fetchCategories();
+      await ifCookieSession();
+      await getUser();
+    };
+
+    getStuff();
+  }, []);
+  console.log(_redux_index__WEBPACK_IMPORTED_MODULE_6__["default"].getState());
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, "hello");
 };
+
+const mapStateToProps = (state, ownProps) => ({
+  // categories: state.categories,
+  user: state.user,
+  // selectedCategoryTitle: ownProps.match.params.categoryTitle ? ownProps.match.params.categoryTitle : 'all',
+  selectedCategoryTitle: 'Animals'
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchCategories: () => {
+    dispatch(Object(_redux_categories_allCategories__WEBPACK_IMPORTED_MODULE_3__["fetchCategories"])());
+  },
+  // logout: () => {
+  //   dispatch(logout());
+  // },
+  getUser: () => {
+    dispatch(Object(_redux_authentication_user__WEBPACK_IMPORTED_MODULE_4__["getUser"])());
+  },
+  ifCookieSession: () => {
+    dispatch(Object(_redux_authentication_session__WEBPACK_IMPORTED_MODULE_5__["ifCookieSession"])());
+  }
+});
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, mapDispatchToProps)(Navbar));
+
+/***/ }),
+
+/***/ "./client/components/authentication/CreateUser.js":
+/*!********************************************************!*\
+  !*** ./client/components/authentication/CreateUser.js ***!
+  \********************************************************/
+/*! exports provided: CreateUser */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreateUser", function() { return CreateUser; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _UserInfo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UserInfo */ "./client/components/authentication/UserInfo.js");
+
+
+const CreateUser = () => {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UserInfo__WEBPACK_IMPORTED_MODULE_1__["UserInfo"], {
+    type: "create"
+  }));
+};
+
+/***/ }),
+
+/***/ "./client/components/authentication/Login.js":
+/*!***************************************************!*\
+  !*** ./client/components/authentication/Login.js ***!
+  \***************************************************/
+/*! exports provided: Login */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Login", function() { return Login; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _UserInfo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UserInfo */ "./client/components/authentication/UserInfo.js");
+
+
+const Login = () => {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UserInfo__WEBPACK_IMPORTED_MODULE_1__["UserInfo"], {
+    type: "login"
+  }));
+};
+
+/***/ }),
+
+/***/ "./client/components/authentication/UserInfo.js":
+/*!******************************************************!*\
+  !*** ./client/components/authentication/UserInfo.js ***!
+  \******************************************************/
+/*! exports provided: UserInfo, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserInfo", function() { return UserInfo; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _redux_authentication_user__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../redux/authentication/user */ "./client/redux/authentication/user.js");
+/* harmony import */ var _redux_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../redux/index */ "./client/redux/index.js");
+
+
+
+
+
+const UserInfo = props => {
+  const {
+    type
+  } = props;
+  const [username, setUserName] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])('');
+  const [password, setPassword] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])('');
+  const [firstName, setFirstName] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])('');
+  const [lastName, setLastName] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])('');
+  const [userEmail, setUserEmail] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])('');
+  const [message, setMessage] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])('');
+
+  const submit = async e => {
+    e.preventDefault();
+    console.log({
+      username,
+      password,
+      firstName,
+      lastName,
+      userEmail
+    }, _redux_authentication_user__WEBPACK_IMPORTED_MODULE_3__["createUser"]);
+    await Object(_redux_authentication_user__WEBPACK_IMPORTED_MODULE_3__["createUser"])({
+      username,
+      password,
+      firstName,
+      lastName,
+      userEmail
+    });
+  }; // if (!username.length || !password.length) {
+  //   setMessage('all fields plz');
+  // } else {
+  //   setMessage('');
+  //   if (type === 'login') {
+  //     await login({
+  //       username,
+  //       password,
+  //       firstName,
+  //       lastName,
+  //       userEmail,
+  //     });
+  //     if (!props.user.id) {
+  //       setMessage('check username/password');
+  //     } else {
+  //       return <Redirect to='/home' />;
+  //     }
+  //   }
+  //   if (type === 'create') {
+  //     if (!firstName.length || !lastName.length || !userEmail.length) {
+  //       setMessage('all fields plz');
+  //     } else {
+  //   }
+  //     }
+  //   };
+
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, "yoyo", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+    onSubmit: e => submit(e)
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    type: "submit",
+    onClick: Object(_redux_authentication_user__WEBPACK_IMPORTED_MODULE_3__["createUser"])({
+      username,
+      password,
+      firstName,
+      lastName,
+      userEmail
+    })
+  }, type === 'login' ? 'Login' : 'Create Account'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    onChange: e => setUserName(e.target.value),
+    placeholder: "username",
+    type: "text"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    onChange: e => setPassword(e.target.value),
+    placeholder: "password",
+    type: "password"
+  }), type === 'create' && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    placeholder: "first name",
+    onChange: e => setFirstName(e.target.value)
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    placeholder: "last name",
+    onChange: e => setLastName(e.target.value)
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    placeholder: "email",
+    onChange: e => setUserEmail(e.target.value)
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, message));
+};
+
+const mapStateToProps = state => ({
+  user: state.user
+});
+
+const mapDispatchToProps = dispatch => ({
+  login: loginInfo => dispatch(Object(_redux_authentication_user__WEBPACK_IMPORTED_MODULE_3__["login"])(loginInfo)),
+  createUser: newUserInfo => dispatch(Object(_redux_authentication_user__WEBPACK_IMPORTED_MODULE_3__["createUser"])(newUserInfo))
+});
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(UserInfo));
 
 /***/ }),
 
@@ -153,7 +371,7 @@ const Navbar = () => {
 /*!************************************!*\
   !*** ./client/components/index.js ***!
   \************************************/
-/*! exports provided: Routes */
+/*! exports provided: Routes, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -168,6 +386,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _LandingPage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./LandingPage */ "./client/components/LandingPage.js");
 /* harmony import */ var _Navbar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Navbar */ "./client/components/Navbar.js");
+/* harmony import */ var _authentication_Login__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./authentication/Login */ "./client/components/authentication/Login.js");
+/* harmony import */ var _authentication_CreateUser__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./authentication/CreateUser */ "./client/components/authentication/CreateUser.js");
+
+
 
 
 
@@ -175,27 +397,51 @@ __webpack_require__.r(__webpack_exports__);
 
 
  // require('dotenv').config()
+// const stripePromise = loadStripe(process.env.STRIPE_PUBLIC_KEY);
+// console.log(stripePromise);
 
-const stripePromise = Object(_stripe_stripe_js__WEBPACK_IMPORTED_MODULE_3__["loadStripe"])("pk_test_51I9W62HLAzF5yr08seh8CF44Fn7e7AR2Tq5oAvojPspQij7C6ET5rL9Z7cFHs87aHSVtf4NBqq3HdXaxja1lNYmv008pX9cYsU");
-console.log(stripePromise);
-const Routes = () => {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_stripe_react_stripe_js__WEBPACK_IMPORTED_MODULE_4__["Elements"], {
-    stripe: stripePromise
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
-    render: () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Navbar__WEBPACK_IMPORTED_MODULE_6__["Navbar"], null)
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "body"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
-    exact: true,
-    path: "/"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
-    to: "/home"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
-    path: "/home",
-    exact: true,
-    component: _LandingPage__WEBPACK_IMPORTED_MODULE_5__["LandingPage"]
-  }))))));
+const Routes = props => {
+  return (
+    /*#__PURE__*/
+    // <Elements stripe={stripePromise}>
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+      render: () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Navbar__WEBPACK_IMPORTED_MODULE_6__["default"], null)
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "body"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+      exact: true,
+      path: "/"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
+      to: "/home"
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+      path: "/home",
+      exact: true,
+      component: _LandingPage__WEBPACK_IMPORTED_MODULE_5__["LandingPage"]
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+      path: "/login",
+      component: _authentication_Login__WEBPACK_IMPORTED_MODULE_7__["Login"]
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+      path: "/createuser",
+      component: _authentication_CreateUser__WEBPACK_IMPORTED_MODULE_8__["CreateUser"]
+    }))))) // </Elements>
+
+  );
 };
+
+const mapStateToProps = state => ({
+  session: state.session
+});
+
+const mapDispatchToProps = dispatch => ({
+  createGuestSession: () => {
+    dispatch(createGuestSession());
+  },
+  refreshSession: sessionId => {
+    dispatch(refreshSession(sessionId));
+  }
+});
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, mapDispatchToProps)(Routes));
 
 /***/ }),
 
@@ -226,6 +472,198 @@ Object(react_dom__WEBPACK_IMPORTED_MODULE_1__["render"])( /*#__PURE__*/react__WE
 
 /***/ }),
 
+/***/ "./client/redux/authentication/session.js":
+/*!************************************************!*\
+  !*** ./client/redux/authentication/session.js ***!
+  \************************************************/
+/*! exports provided: ifCookieSession, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ifCookieSession", function() { return ifCookieSession; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return sessionReducer; });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+const IF_COOKIE_SESSION = 'IF_COOKIE_SESSION';
+
+const _ifCookieSession = session => ({
+  type: IF_COOKIE_SESSION,
+  session
+});
+
+const ifCookieSession = () => async dispatch => {
+  try {
+    console.log('firing cookie');
+    const {
+      data
+    } = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/auth/mount');
+    dispatch(_ifCookieSession(data));
+  } catch (err) {
+    console.log(err);
+  }
+};
+function sessionReducer(state = {}, action) {
+  if (action.type === IF_COOKIE_SESSION) {
+    state = action.session;
+  }
+
+  return state;
+}
+
+/***/ }),
+
+/***/ "./client/redux/authentication/user.js":
+/*!*********************************************!*\
+  !*** ./client/redux/authentication/user.js ***!
+  \*********************************************/
+/*! exports provided: default, login, createUser, logOut, getUser */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return userReducer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "login", function() { return login; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createUser", function() { return createUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logOut", function() { return logOut; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUser", function() { return getUser; });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+const LOGIN = 'LOGIN';
+const CREATE_USER = 'CREATE_USER';
+const LOGOUT = 'LOGOUT';
+const GET_USER = 'GET_USER';
+
+const _login = loginUser => ({
+  type: LOGIN,
+  loginUser
+});
+
+const _createUser = newUser => ({
+  type: CREATE_USER,
+  newUser
+});
+
+const _logout = emptyUser => ({
+  type: LOGOUT,
+  emptyUser
+});
+
+const _getUser = thisUser => ({
+  type: GET_USER,
+  thisUser
+});
+
+const login = loginInfo => async dispatch => {
+  try {
+    const {
+      data
+    } = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/auth/login', loginInfo);
+    dispatch(_login(data));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const createUser = newUserInfo => async dispatch => {
+  try {
+    console.log('createuser');
+    const {
+      data
+    } = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/auth/createuser', newUserInfo);
+    dispatch(_createUser(data));
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const logOut = () => async disaptch => {
+  try {
+    await axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/auth/logout');
+    const emptyUser = {};
+    dispatch(_logout(emptyUser));
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const getUser = () => async dispatch => {
+  try {
+    console.log('yoooooo');
+    const {
+      data
+    } = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/auth/thisUser');
+    dispatch(_getUser(data));
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+function userReducer(state = {}, action) {
+  switch (action.type) {
+    case LOGIN:
+      return action.loginUser;
+
+    case CREATE_USER:
+      return action.newUser;
+
+    case LOGOUT:
+      return action.emptyUser;
+
+    case GET_USER:
+      return action.thisUser;
+
+    default:
+      return state;
+  }
+}
+
+
+/***/ }),
+
+/***/ "./client/redux/categories/allCategories.js":
+/*!**************************************************!*\
+  !*** ./client/redux/categories/allCategories.js ***!
+  \**************************************************/
+/*! exports provided: fetchCategories, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchCategories", function() { return fetchCategories; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return allCategoriesReducer; });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+const LOAD_CATEGORIES = 'LOAD_CATEGORIES';
+
+const _loadCategories = categories => ({
+  type: LOAD_CATEGORIES,
+  categories
+});
+
+const fetchCategories = () => async dispatch => {
+  try {
+    const {
+      data
+    } = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/categories');
+    dispatch(_loadCategories(data));
+  } catch (err) {
+    console.error(err);
+  }
+};
+function allCategoriesReducer(state = [], action) {
+  if (action.type === LOAD_CATEGORIES) {
+    state = [...action.categories];
+  }
+
+  return state;
+}
+
+/***/ }),
+
 /***/ "./client/redux/index.js":
 /*!*******************************!*\
   !*** ./client/redux/index.js ***!
@@ -239,10 +677,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/es/index.js");
+/* harmony import */ var _authentication_session__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./authentication/session */ "./client/redux/authentication/session.js");
+/* harmony import */ var _authentication_user__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./authentication/user */ "./client/redux/authentication/user.js");
 
 
 
-const appReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({});
+
+
+const appReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
+  sessionReducer: _authentication_session__WEBPACK_IMPORTED_MODULE_3__["default"],
+  userReducer: _authentication_user__WEBPACK_IMPORTED_MODULE_4__["default"]
+});
 const middleware = [redux_thunk__WEBPACK_IMPORTED_MODULE_2__["default"].withExtraArgument({
   axios: (axios__WEBPACK_IMPORTED_MODULE_1___default())
 })];

@@ -31,7 +31,7 @@ router.get('/orderHistory', async (req, res, next) => {
     const sessionid = req.session.id;
     const orders = await Order.findAll({
       where: {
-        sessionId,
+        sessionid,
         isPaid: true,
       },
       include: [Plant],
