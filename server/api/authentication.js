@@ -143,11 +143,13 @@ router.post('/logout', async (req, res, next) => {
 
 router.get('/thisUser', async (req, res, next) => {
   try {
-    const { uuid } = req.session;
-    const userSession = await Session.findOrCreate({
-      where: { uuid },
+ console.log('thesession', req.session)
+    const  uuid  = req.session.dataValues.uuid
+    const userSession = await Session.findOne({
+      where: {  uuid },
     });
-    const user = await User.findByPk(userSession.userId);
+    console.log('yoyoyoyoyoyo',userSession)
+    const user = await User.findByPk(userSession.id);
     user ? res.send(user) : res.sendStatus(404);
   } catch (err) {
     next(err);

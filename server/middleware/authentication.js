@@ -1,4 +1,3 @@
-const chalk = require('chalk');
 const { Session, User } = require('../db');
 
 const authMiddleware = async (req, res, next) => {
@@ -21,9 +20,9 @@ console.log('reqqqq',req.cookies)
       req.session = null;
     } else {
       if (session.user) {
-        console.log(chalk.magenta(`Session User Identified: ${session.user.username}`));
+        console.log(`Session User Identified: ${session.user.username}`);
       } else {
-        console.log(chalk.magenta('Session User Identified: Guest'));
+        console.log('Session User Identified: Guest');
       }
       req.session = session;
     }

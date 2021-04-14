@@ -57,7 +57,7 @@ const logOut = () => async (disaptch) => {
 const getUser = () => async (dispatch) => {
   try {    console.log('yoooooo')
     const { data } = await axios.get('/api/auth/thisUser');
-
+console.log('this is the data', data)
     dispatch(_getUser(data));
   } catch (err) {
     console.error(err);

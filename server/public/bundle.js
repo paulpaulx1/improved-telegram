@@ -178,7 +178,7 @@ const Navbar = props => {
 
 const mapStateToProps = (state, ownProps) => ({
   // categories: state.categories,
-  user: state.user,
+  user: _redux_index__WEBPACK_IMPORTED_MODULE_6__["default"].getState().userReducer,
   // selectedCategoryTitle: ownProps.match.params.categoryTitle ? ownProps.match.params.categoryTitle : 'all',
   selectedCategoryTitle: 'Animals'
 });
@@ -595,6 +595,7 @@ const getUser = () => async dispatch => {
     const {
       data
     } = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/auth/thisUser');
+    console.log('this is the data', data);
     dispatch(_getUser(data));
   } catch (err) {
     console.error(err);

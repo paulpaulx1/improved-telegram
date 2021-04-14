@@ -27,7 +27,7 @@ const [stuff, setStuff] = useState({})
 
 const mapStateToProps = (state, ownProps) => ({
     // categories: state.categories,
-    user: state.user,
+    user: store.getState().userReducer,
     // selectedCategoryTitle: ownProps.match.params.categoryTitle ? ownProps.match.params.categoryTitle : 'all',
     selectedCategoryTitle: 'Animals',
   });
