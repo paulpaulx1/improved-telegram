@@ -6,7 +6,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
-console.log('yo', stripeSecretKey)
+
 const stripePublicKey = process.env.REACT_APP_STRIPE_PUBLIC_KEY;
 
 const Stripe = require('stripe');
@@ -33,19 +33,19 @@ router.post('/email', async (req, res, next) => {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: 'graceshockers@gmail.com', // generated ethereal user
-        pass: 'Catchers', // generated ethereal password
+        user: "paulmneenantest@gmail.com",
+        pass: process.env.PASS
       },
     });
     // send mail with defined transport object
     const info = await transporter.sendMail({
-      from: '"Grace Shockers 👻" <graceshockers@gmail.com>',
+      from: '"paulpaulpaul" <paulmneenantest@gmail.com>',
       to: email,
       subject,
       html: emailText,
     });
 
-    console.log('Message sent: %s', info.messageId);
+    console.log('message sent', info.messageId);
     res.sendStatus(200);
   } catch (err) { next(err); }
 });
