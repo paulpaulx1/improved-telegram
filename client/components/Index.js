@@ -14,12 +14,12 @@ import { Login } from './authentication/Login';
 import { CreateUser } from './authentication/CreateUser';
 // require('dotenv').config()
 
-// const stripePromise = loadStripe(process.env.STRIPE_PUBLIC_KEY);
-// console.log(stripePromise);
+const stripePromise = loadStripe(process.env.STRIPE_PUBLIC_KEY);
+console.log(stripePromise);
 
 export const Routes = (props) => {
   return (
-    // <Elements stripe={stripePromise}>
+    <Elements stripe={stripePromise}>
       <Router>
         <div>
           <Route render={() => <Navbar />} />
@@ -35,7 +35,7 @@ export const Routes = (props) => {
           </div>
         </div>
       </Router>
-    // </Elements>
+     </Elements>
   );
 };
 

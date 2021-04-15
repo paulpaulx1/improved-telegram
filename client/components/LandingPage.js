@@ -14,7 +14,6 @@ export const LandingPage = () => {
     fetchData();
   }, []);
 
-  console.log(data);
   return (
     data && (
       <>

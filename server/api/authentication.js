@@ -7,8 +7,6 @@ const WEEKINSECONDS = 1000 * 60 * 60 * 24 * 7;
 
 router.post('/mount', async (req, res, next) => {
   try {
-      console.log('yalllllll')
-    //   console.log(req.session)
     if (req.session) {
       const refreshedSession = await Session.findByPk(req.session.id);
       res
@@ -143,14 +141,16 @@ router.post('/logout', async (req, res, next) => {
 
 router.get('/thisUser', async (req, res, next) => {
   try {
- console.log('thesession', req.session)
-    const  uuid  = req.session.dataValues.uuid
+    console.log('yo yo yo', req.session)
+    const { uuid } = req.session.dataValues;
+    console.log('uuuuuu', uuid)
     const userSession = await Session.findOne({
-      where: {  uuid },
+      where: { uuid },
     });
-    console.log('yoyoyoyoyoyo',userSession)
-    const user = await User.findByPk(userSession.id);
-    user ? res.send(user) : res.sendStatus(404);
+    console.log('UUUUUSer', userSession)
+    const user = await User.findByPk(userSession.userId);
+    if (user) res.send(user);
+    else res.sendStatus(404);
   } catch (err) {
     next(err);
   }

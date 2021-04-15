@@ -36,6 +36,7 @@ router.get('/orderHistory', async (req, res, next) => {
       },
       include: [Plant],
     });
+    res.send(orders)
   } catch (err) {
     next(err);
   }

@@ -228,7 +228,6 @@ const seed = async () => {
         plantsCreated[rand + 1],
       ]);
     }
-    // calculate total for each order from costumes
     for (let i = 0; i < ordersCreated.length; i++) {
       const order = ordersCreated[i];
       await order.calcTotal();
